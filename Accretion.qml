@@ -2,7 +2,6 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import kdirchainmodel 1.0 as KDirchain
 import "javascript/util.js" as JsUtil
-import "Transitional"
 
 Rectangle {
     id: appRoot
