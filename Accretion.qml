@@ -132,6 +132,7 @@ Rectangle {
                     }
                     drag.axis: Drag.XAxis
                     drag.target: parent
+                    drag.threshold: 0.0
                 }
             }
 

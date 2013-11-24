@@ -92,6 +92,7 @@ Item {
             anchors.fill: parent
             drag.target: parent
             drag.axis: Drag.XAxis
+            drag.threshold: 0.0
             hoverEnabled: true
             onEntered: {
                 cursorShape = Qt.SizeHorCursor
