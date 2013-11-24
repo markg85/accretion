@@ -5,21 +5,7 @@ import "javascript/util.js" as JsUtil
 Rectangle {
     id: root
     color: "transparent"
-
-    property alias url: bcModel.url
-    property alias model: bcModel
-
-    function append(basename) {
-        bcModel.append(basename)
-    }
-
-    KDirchain.BreadcrumbUrlModel {
-        id: bcModel
-
-        onUrlChanged: {
-            console.log("KDirchain.BreadcrumbUrlModel url: " + url)
-        }
-    }
+    property alias model: bcView.model
 
     Component {
         id: comp
@@ -56,7 +42,7 @@ Rectangle {
                         }
                     }
                     onClicked: {
-                        bcModel.removeAfterIndex(index)
+                        root.model.removeAfterIndex(index)
                     }
                 }
             }
@@ -76,15 +62,12 @@ Rectangle {
         }
     }
 
-
     ListView {
         id: bcView
         interactive: false
         width: parent.width
         height: parent.height
         orientation: Qt.Horizontal
-
-        model: bcModel
         delegate: comp
     }
 

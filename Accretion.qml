@@ -73,11 +73,7 @@ Rectangle {
                 id: breadCrumbBar
                 height: parent.height
                 Layout.fillWidth: true
-                url: "file:///home/"
-
-                onUrlChanged: {
-                    console.log("url changed to: " + url)
-                }
+                model: splitView.activeViewContainer.urlModel
             }
 
             FontAwesomeIcon {
@@ -134,7 +130,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: spacer.right
                 anchors.right: parent.right
-                url: breadCrumbBar.url
+                url: "file:///home/"
                 splitView: false
             }
         }

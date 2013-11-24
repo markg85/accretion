@@ -172,7 +172,7 @@ Item {
                             onClicked: {
                                 if(mimeIcon == "inode-directory") {
                                     // Folder clicked
-                                    breadCrumbBar.append(baseName)
+                                    viewRoot.append(baseName)
                                 } else {
                                     // Something else clicked. Execute it.
                                 }

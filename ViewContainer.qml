@@ -5,11 +5,16 @@ import "javascript/util.js" as JsUtil
 
 Item {
 
-    id: root
+    id: viewRoot
     signal reload()
-    property alias url: dirModel.path
+    property alias url: bcModel.url
+    property alias urlModel: bcModel
     property bool activeView: true
     property color viewBackgroundColor: (activeView) ? JsUtil.Theme.ViewContainer.Views.active : JsUtil.Theme.ViewContainer.Views.inactive
+
+    function append(basename) {
+        bcModel.append(basename)
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -23,7 +28,24 @@ Item {
 
     KDirchain.DirGroupedModel {
         id: dirModel
+        path: bcModel.url
         groupby: KDirchain.DirListModel.MimeIcon
+    }
+
+    /**
+      Each view has it's own "BreadcrumbUrlModel". This allows for easy switching of urlModel objects in the main window.
+      This also allows for easy back/forward maintainability because each view has it's own url model.
+
+      One thing that _must_ be remembered is that each url change must be send to this model! Not to the Dir*Model objects!
+      They will be updated once the url model changes it's url.
+    */
+    KDirchain.BreadcrumbUrlModel {
+        id: bcModel
+        url: viewRoot.url
+
+        onUrlChanged: {
+            console.log("KDirchain.BreadcrumbUrlModel url: " + url)
+        }
     }
 
     state: "list"
