@@ -190,7 +190,7 @@ Item {
                     width: date.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: JsUtil.Theme.ViewContainer.ContentStates.normal.color
-                    text: modificationTime
+                    text: Qt.formatDateTime(modificationTime, "dd/MM/yyyy hh:mm.ss")
                     elide: Text.ElideRight
                 }
                 Text {
