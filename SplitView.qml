@@ -49,6 +49,14 @@ Item {
             anchors.fill: parent
             drag.target: parent
             drag.axis: Drag.XAxis
+            hoverEnabled: true
+            onEntered: {
+                cursorShape = Qt.SizeHorCursor
+            }
+
+            onDoubleClicked: {
+                viewSplitter.x = root.width / 2 - viewSplitter.width
+            }
         }
     }
 
@@ -60,6 +68,12 @@ Item {
         enabled: parent.splitView
         clip: true
         activeView: false // There can only be one view active at any given time.
+
+        Component.onCompleted: {
+            if(enabled) {
+                url = root.url
+            }
+        }
 
         onActiveViewChanged: {
             if(activeView) {

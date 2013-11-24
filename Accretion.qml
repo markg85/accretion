@@ -135,6 +135,7 @@ Rectangle {
                 anchors.left: spacer.right
                 anchors.right: parent.right
                 url: breadCrumbBar.url
+                splitView: false
             }
         }
     }

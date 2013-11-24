@@ -11,6 +11,12 @@ Item {
     property bool activeView: true
     property color viewBackgroundColor: (activeView) ? JsUtil.Theme.ViewContainer.Views.active : JsUtil.Theme.ViewContainer.Views.inactive
 
+    Rectangle {
+        anchors.fill: parent
+        color: parent.viewBackgroundColor
+        visible: !parent.activeView
+    }
+
     onReload: {
         dirModel.reload()
     }

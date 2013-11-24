@@ -10,6 +10,10 @@ Item {
     property var model: 0
     property var groupKey: ""
 
+    Component.onCompleted: {
+        model.hidden = false
+    }
+
     signal folderClicked(string folder)
 
 
