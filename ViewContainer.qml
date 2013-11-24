@@ -17,9 +17,30 @@ Item {
     }
 
     Rectangle {
+        id: overlay
         anchors.fill: parent
         color: parent.viewBackgroundColor
         visible: !parent.activeView
+        Behavior on opacity {
+            NumberAnimation { duration: 100 }
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: {
+            overlay.opacity = 0.5
+        }
+        onExited: {
+            overlay.opacity = 1
+        }
+        onClicked: {
+            viewRoot.activeView = true
+        }
+
+        z: viewRoot.activeView ? -10 : 1
+        enabled: !viewRoot.activeView
     }
 
     onReload: {
@@ -76,6 +97,12 @@ Item {
         id: views
         anchors.fill: parent
         model: dirModel
+        opacity: activeView ? 1 : 0.5
+
+        Behavior on opacity {
+            NumberAnimation { duration: 100 }
+        }
+
         delegate: Views.SingleGroup {
             model: dirModel.modelAtIndex(index)
             groupKey: (display) ? display : "";

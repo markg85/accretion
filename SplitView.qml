@@ -4,12 +4,35 @@ import "javascript/util.js" as JsUtil
 Item {
     id: root
     property bool splitView: false
-    property int contentWidth: width / ((splitView) ? 2 : 1)
     property ViewContainer activeViewContainer: leftView
     property string url: ""
 
     function reload() {
         activeViewContainer.reload()
+    }
+
+    function hideInactiveView() {
+        if(activeViewContainer === leftView) {
+            rightView.enabled = false
+            viewSplitter.state = "toRight"
+        } else {
+            leftView.enabled = false
+            viewSplitter.state = "toLeft"
+        }
+    }
+
+    function showInactiveView() {
+        rightView.enabled = true
+        leftView.enabled = true
+        viewSplitter.state = "toSplit"
+    }
+
+    onSplitViewChanged: {
+        if(splitView) {
+            showInactiveView()
+        } else {
+            hideInactiveView()
+        }
     }
 
     ViewContainer {
@@ -18,6 +41,7 @@ Item {
         anchors.right: viewSplitter.left
         height: parent.height
         url: root.url
+        activeView: true
         clip: true
 
         onActiveViewChanged: {
@@ -36,7 +60,26 @@ Item {
         height: parent.height
         visible: parent.splitView
 
-        x: parent.contentWidth
+        state: "toRight"
+
+        states: [
+            State {
+                name: "toSplit"
+                PropertyChanges { target: viewSplitter; x: root.width / 2 - viewSplitter.width }
+            },
+            State {
+                name: "toLeft"
+                PropertyChanges { target: viewSplitter; x: 0 - viewSplitter.width }
+            },
+            State {
+                name: "toRight"
+                PropertyChanges { target: viewSplitter; x: root.width }
+            }
+        ]
+
+        Behavior on x {
+            NumberAnimation { duration: 100; easing.type: Easing.OutBack }
+        }
 
         Rectangle {
             width: 1
@@ -65,15 +108,9 @@ Item {
         anchors.left: viewSplitter.right
         anchors.right: parent.right
         height: parent.height
-        enabled: parent.splitView
         clip: true
         activeView: false // There can only be one view active at any given time.
-
-        Component.onCompleted: {
-            if(enabled) {
-                url = root.url
-            }
-        }
+        url: root.url
 
         onActiveViewChanged: {
             if(activeView) {

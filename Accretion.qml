@@ -82,6 +82,16 @@ Rectangle {
                 height: parent.height
                 iconName: JsUtil.FA.Cog
             }
+
+            FontAwesomeIcon {
+                width: parent.height
+                height: parent.height
+                iconName: JsUtil.FA.Columns
+
+                onClicked: {
+                    splitView.splitView = !splitView.splitView
+                }
+            }
         }
 
         // Placeholder
