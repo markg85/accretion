@@ -113,6 +113,7 @@ Item {
         clip: true
         activeView: false // There can only be one view active at any given time.
         url: root.url
+        enabled: root.splitView
 
         onActiveViewChanged: {
             if(activeView) {

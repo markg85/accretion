@@ -6,6 +6,7 @@ import "javascript/util.js" as JsUtil
 Item {
 
     id: viewRoot
+    opacity: enabled ? 1.0 : 0.0
     signal reload()
     property alias url: bcModel.url
     property alias urlModel: bcModel
@@ -14,6 +15,10 @@ Item {
 
     function append(basename) {
         bcModel.append(basename)
+    }
+
+    Behavior on opacity {
+        NumberAnimation { duration: 100 }
     }
 
     Rectangle {
