@@ -99,7 +99,8 @@ Item {
             }
 
             onDoubleClicked: {
-                viewSplitter.x = root.width / 2 - viewSplitter.width
+                viewSplitter.state = "random"
+                viewSplitter.state = "toSplit"
             }
         }
     }
