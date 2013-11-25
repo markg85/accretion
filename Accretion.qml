@@ -19,16 +19,34 @@ Rectangle {
 
     Column {
         anchors.fill: parent
+        id: parCol
 
         property int topPlaceholderHeight: 30
         property int bottomPlaceholderHeight: 30
         property int headRowHeight: 30
+        property bool isExpandedForSettings: false
         property int totalHeadHight: topPlaceholderHeight + bottomPlaceholderHeight + headRowHeight
+
+        function toggleQuickSettings() {
+            if(isExpandedForSettings) {
+                topPlaceholderHeight = 30
+                bottomPlaceholderHeight = 30
+                settings.opacity = 0.0
+            } else {
+                topPlaceholderHeight = 5
+                bottomPlaceholderHeight = 55
+                settings.opacity = 1.0
+            }
+            isExpandedForSettings = !isExpandedForSettings
+        }
 
         // Placeholder
         Item {
             width: parent.width
             height: parent.topPlaceholderHeight
+            Behavior on height {
+                NumberAnimation { duration: 100 }
+            }
         }
 
         RowLayout {
@@ -81,23 +99,54 @@ Rectangle {
                 width: parent.height
                 height: parent.height
                 iconName: JsUtil.FA.Cog
-            }
-
-            FontAwesomeIcon {
-                width: parent.height
-                height: parent.height
-                iconName: JsUtil.FA.Columns
 
                 onClicked: {
-                    splitView.splitView = !splitView.splitView
+                    parCol.toggleQuickSettings()
                 }
             }
         }
 
         // Placeholder
         Item {
-            width: parent.width
+            width: parent.width - 10
+            x: 5
             height: parent.bottomPlaceholderHeight
+            Behavior on height {
+                NumberAnimation { duration: 100 }
+            }
+
+            Grid {
+                id: settings
+                opacity: 0.0
+                columns: 3
+                Behavior on opacity {
+                    NumberAnimation { duration: 100 }
+                }
+                anchors.fill: parent
+                property int cellHeight: parent.height / 3
+                property int cellWidth: parent.width / 3
+                Item {
+                    width: settings.cellWidth
+                    height: settings.cellHeight
+                    Row {
+                        anchors.fill: parent
+                        spacing: 5
+                        FontAwesomeIcon {
+                            width: parent.height
+                            height: parent.height
+                            iconName: JsUtil.FA.Columns
+
+                            onClicked: {
+                                splitView.splitView = !splitView.splitView
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "Split view"
+                        }
+                    }
+                }
+            }
         }
 
         Item {
@@ -141,7 +190,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: spacer.right
                 anchors.right: parent.right
-                url: "file:///home/"
+                url: "file:///home/kde-devel"
                 splitView: false
             }
         }
