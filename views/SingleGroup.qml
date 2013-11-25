@@ -165,7 +165,6 @@ Item {
                         id: content
                         color: JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
                         text: baseName
-                        font.bold: true
                         elide: Text.ElideRight
                         MouseArea {
                             anchors.fill: parent
