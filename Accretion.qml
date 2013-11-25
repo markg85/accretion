@@ -10,7 +10,7 @@ Rectangle {
     color: JsUtil.Theme.Application.background.color
 
     // Only ever include this line ONCE throughout the application!
-    AppShortcuts{}
+    AppShortcuts { }
 
     // Load the "FontAwesome" font for the monochrome icons.
     FontLoader {
