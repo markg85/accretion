@@ -17,6 +17,11 @@ Item {
         bcModel.append(basename)
     }
 
+    function exec(name) {
+        Qt.openUrlExternally(url + "/" + name)
+        console.log(url + "/" + name)
+    }
+
     Behavior on opacity {
         NumberAnimation { duration: 100 }
     }

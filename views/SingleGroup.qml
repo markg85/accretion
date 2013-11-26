@@ -173,7 +173,7 @@ Item {
                                     // Folder clicked
                                     viewRoot.append(baseName)
                                 } else {
-                                    // Something else clicked. Execute it.
+                                    viewRoot.exec(name)
                                 }
                             }
                         }
