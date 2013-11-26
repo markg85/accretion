@@ -27,14 +27,13 @@ Item {
 
             ParallelAnimation {
                 id: parAnim
-                NumberAnimation { target: faIconAnimation; properties: "scale"; from: 0.0; to: 3.0; duration: 150 }
+                NumberAnimation { target: faIconAnimation; properties: "scale"; from: 0.0; to: 2.0; duration: 150 }
                 NumberAnimation { target: faIconAnimation; properties: "opacity"; to: 0.0; duration: 150 }
             }
         }
     ]
 
     Item {
-        y: 2
         height: parent.height
         width: parent.width
 
@@ -76,7 +75,12 @@ Item {
         }
 
         onClicked: {
+            if(faRoot.state == "pressed") {
+                faRoot.state = "normal" // reset it to normal
+            }
+
             faRoot.clicked()
+            faRoot.state = "pressed"
         }
 
         onEntered: {
