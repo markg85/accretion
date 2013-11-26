@@ -6,8 +6,11 @@ import kdirchainmodel 1.0
  */
 
 Item {
+    id: root
     // Clipboard
     //Clipboard { id: clip }
+
+    signal splitViewActivated()
 
     // refresh
     Shortcut {
@@ -39,6 +42,15 @@ Item {
         key: "Ctrl+V"
         onActivated: {
             console.log("JS: " + key + " pressed.")
+        }
+    }
+
+    // Toggle splitview
+    Shortcut {
+        id: splitView
+        key: "F3"
+        onActivated: {
+            root.splitViewActivated()
         }
     }
 }

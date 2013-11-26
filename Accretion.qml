@@ -10,7 +10,12 @@ Rectangle {
     color: JsUtil.Theme.Application.background.color
 
     // Only ever include this line ONCE throughout the application!
-    AppShortcuts { }
+    AppShortcuts {
+        // Split view keyboars shortcut
+        onSplitViewActivated: {
+            splitView.splitView = !splitView.splitView
+        }
+    }
 
     // Load the "FontAwesome" font for the monochrome icons.
     FontLoader {
@@ -142,6 +147,7 @@ Rectangle {
                         }
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
+                            color: JsUtil.Theme.BreadCrumb.fontColorActive.normal
                             text: "Split view"
                         }
                     }
