@@ -11,46 +11,77 @@ Item {
     //Clipboard { id: clip }
 
     signal splitViewActivated()
+    signal reload()
+    signal cut()
+    signal copy()
+    signal paste()
+    signal back()
+    signal forward()
 
     // refresh
     Shortcut {
-        key: "F5"
+        keys: [ "F5", "Ctrl+R" ]
+        id: reload
         onActivated: {
-            console.log("JS: " + key + " pressed.")
+            console.log("JS: " + keys + " pressed.")
+            root.reload()
         }
     }
 
     // copy
     Shortcut {
-        key: "Ctrl+C"
+        keys: "Ctrl+C"
         id: test
         onActivated: {
-            console.log("JS: " + key + " pressed.")
+            console.log("JS: " + keys + " pressed.")
+            root.copy()
         }
     }
 
     // cut
     Shortcut {
-        key: "Ctrl+X"
+        keys: "Ctrl+X"
         onActivated: {
-            console.log("JS: " + key + " pressed.")
+            console.log("JS: " + keys + " pressed.")
+            root.cut()
         }
     }
 
     // paste
     Shortcut {
-        key: "Ctrl+V"
+        keys: "Ctrl+V"
         onActivated: {
-            console.log("JS: " + key + " pressed.")
+            console.log("JS: " + keys + " pressed.")
+            root.paste()
         }
     }
 
     // Toggle splitview
     Shortcut {
         id: splitView
-        key: "F3"
+        keys: "F3"
         onActivated: {
             root.splitViewActivated()
+        }
+    }
+
+    // back
+    Shortcut {
+        keys: [ "BackButton", "Alt+Left", "Backspace" ]
+        id: back
+        onActivated: {
+            console.log("JS: " + keys + " pressed.")
+            root.back()
+        }
+    }
+
+    // forward
+    Shortcut {
+        keys: [ "ForwardButton", "Alt+Right" ]
+        id: forward
+        onActivated: {
+            console.log("JS: " + keys + " pressed.")
+            root.forward()
         }
     }
 }

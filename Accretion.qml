@@ -15,6 +15,10 @@ Rectangle {
         onSplitViewActivated: {
             splitView.splitView = !splitView.splitView
         }
+
+        onReload: splitView.reload()
+        onBack: breadCrumbBar.model.previous()
+        onForward: breadCrumbBar.model.next()
     }
 
     // Load the "FontAwesome" font for the monochrome icons.
