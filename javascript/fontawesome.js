@@ -210,5 +210,6 @@ var Icon = {
     Sitemap             : "\uf0e8",
     Unbrella            : "\uf0e9",
     Paste               : "\uf0ea",
+    StarHalfEmpty           : "\uf123",
     UserMd              : "\uf200",
 };
