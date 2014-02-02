@@ -117,6 +117,12 @@ Item {
             model: dirModel.modelAtIndex(index)
             groupKey: (display) ? display : "";
         }
+
+        onContentYChanged: {
+            if(!viewRoot.activeView) {
+                viewRoot.activeView = true
+            }
+        }
     }
 
 //    Loader {
