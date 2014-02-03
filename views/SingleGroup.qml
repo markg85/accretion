@@ -14,9 +14,6 @@ Item {
         model.hidden = false
     }
 
-    signal folderClicked(string folder)
-
-
     Item {
         id: rect
         height: 20
