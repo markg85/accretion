@@ -99,29 +99,50 @@ Item {
             border.width: 1
             radius: 5
 
+            state: "normal"
+
+            function normalColors() {
+                itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.normal.color
+                itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.normal.borderColor
+                content.color = JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
+                normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
+                normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
+                normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
+                imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.normal.imageBackground
+                imageIcon.border.color = JsUtil.Theme.ViewContainer.ItemStates.normal.imageBorderColor
+            }
+
+            function hoverColors() {
+                itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.hover.color
+                itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.hover.borderColor
+                content.color = JsUtil.Theme.ViewContainer.ContentStates.hover.highlight
+                normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
+                normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
+                normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
+                imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.hover.imageBackground
+                imageIcon.border.color = JsUtil.Theme.ViewContainer.ItemStates.hover.imageBorderColor
+            }
+
+            states: [
+                State {
+                    name: "normal"
+                    StateChangeScript {
+                        script: normalColors();
+                    }
+                },
+                State {
+                    name: "hover"
+                    StateChangeScript {
+                        script: hoverColors();
+                    }
+                }
+            ]
+
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
-                onEntered: {
-                    itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.hover.color
-                    itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.hover.borderColor
-                    content.color = JsUtil.Theme.ViewContainer.ContentStates.hover.highlight
-                    normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
-                    normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
-                    normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
-                    imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.hover.imageBackground
-                    imageIcon.border.color = JsUtil.Theme.ViewContainer.ItemStates.hover.imageBorderColor
-                }
-                onExited: {
-                    itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.normal.color
-                    itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.normal.borderColor
-                    content.color = JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
-                    normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
-                    normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
-                    normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
-                    imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.normal.imageBackground
-                    imageIcon.border.color = JsUtil.Theme.ViewContainer.ItemStates.normal.imageBorderColor
-                }
+                onEntered: itemBackground.state = "hover"
+                onExited: itemBackground.state = "normal"
             }
 
             Row {
