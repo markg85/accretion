@@ -46,7 +46,15 @@ Item {
             overlay.opacity = 1
         }
         onClicked: {
-            viewRoot.activeView = true
+            if(!viewRoot.activeView) {
+                viewRoot.activeView = true
+            }
+        }
+
+        onWheel: {
+            if(!viewRoot.activeView) {
+                viewRoot.activeView = true
+            }
         }
 
         z: viewRoot.activeView ? -10 : 1
@@ -116,12 +124,6 @@ Item {
         delegate: Views.SingleGroup {
             model: dirModel.modelAtIndex(index)
             groupKey: (display) ? display : "";
-        }
-
-        onContentYChanged: {
-            if(!viewRoot.activeView) {
-                viewRoot.activeView = true
-            }
         }
     }
 
