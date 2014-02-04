@@ -102,7 +102,7 @@ Item {
                 itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.normal.color
                 itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.normal.borderColor
                 content.color = JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
-                normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
+                content.extensionColor = JsUtil.Theme.ViewContainer.ContentStates.normal.color
                 normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
                 normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.normal.color
                 imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.normal.imageBackground
@@ -113,7 +113,7 @@ Item {
                 itemBackground.color = JsUtil.Theme.ViewContainer.ItemStates.hover.color
                 itemBackground.border.color = JsUtil.Theme.ViewContainer.ItemStates.hover.borderColor
                 content.color = JsUtil.Theme.ViewContainer.ContentStates.hover.highlight
-                normalTextOne.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
+                content.extensionColor = JsUtil.Theme.ViewContainer.ContentStates.hover.color
                 normalTextTwo.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
                 normalTextThree.color = JsUtil.Theme.ViewContainer.ContentStates.hover.color
                 imageIcon.color = JsUtil.Theme.ViewContainer.ItemStates.hover.imageBackground
@@ -134,13 +134,6 @@ Item {
                     }
                 }
             ]
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: itemBackground.state = "hover"
-                onExited: itemBackground.state = "normal"
-            }
 
             Row {
                 anchors.verticalCenter: parent.verticalCenter
@@ -169,39 +162,31 @@ Item {
                         cache: false
                     }
                 }
-                /**
-                 *  Note: The Flow below is required to put the filename + extension on one line.
-                 *  And that is done in two separate elements because both have a different style.
-                 *  The downside here is eliding. It's not working because it are two elements.
-                 *  I tried using the HTML eliding way by puttin both text in one html string,
-                 *  but that seems to present some issues in terms of width.
-                 */
-                Flow {
+
+                Text {
+                    property string extensionColor: JsUtil.Theme.ViewContainer.ContentStates.normal.color
+                    property string possibleExtension: (extension.length > 0) ? ".<font color=\""+extensionColor+"\">"+extension+"</font>" : ""
                     anchors.verticalCenter: parent.verticalCenter
                     width: items.width - imageIcon.width - 10 // that 10 is for 2x spacing
-                    Text {
-                        id: content
-                        color: JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
-                        text: baseName
-                        elide: Text.ElideRight
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                if(mimeIcon == "inode-directory") {
-                                    // Folder clicked
-                                    viewRoot.append(baseName)
-                                } else {
-                                    viewRoot.exec(name)
-                                }
+                    id: content
+                    color: JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
+                    text: baseName + possibleExtension
+                    elide: Text.ElideRight
+                    textFormat: Text.StyledText
+                    MouseArea {
+                        anchors.fill: parent
+                        propagateComposedEvents: true
+                        onClicked: {
+                            if(mimeIcon == "inode-directory") {
+                                // Folder clicked
+                                viewRoot.append(baseName)
+                            } else {
+                                viewRoot.exec(name)
                             }
                         }
                     }
-                    Text {
-                        id: normalTextOne
-                        color: JsUtil.Theme.ViewContainer.ContentStates.normal.color
-                        text: (extension.length > 0) ? "."+extension : extension
-                    }
                 }
+
                 Text {
                     id: normalTextTwo
                     width: date.width
@@ -218,6 +203,14 @@ Item {
                     text: JsUtil.humanReadableSize(size)
                     elide: Text.ElideRight
                 }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                propagateComposedEvents: true
+                onEntered: itemBackground.state = "hover"
+                onExited: itemBackground.state = "normal"
             }
         }
     }
