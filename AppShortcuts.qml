@@ -23,7 +23,6 @@ Item {
     // refresh
     Shortcut {
         keys: [ "F5", "Ctrl+R" ]
-        id: reload
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.reload()
@@ -33,7 +32,6 @@ Item {
     // copy
     Shortcut {
         keys: "Ctrl+C"
-        id: test
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.copy()
@@ -60,7 +58,6 @@ Item {
 
     // Toggle splitview
     Shortcut {
-        id: splitView
         keys: "F3"
         onActivated: {
             root.splitViewActivated()
@@ -70,7 +67,6 @@ Item {
     // back
     Shortcut {
         keys: [ "BackButton", "Alt+Left", "Backspace" ]
-        id: back
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.back()
@@ -80,7 +76,6 @@ Item {
     // forward
     Shortcut {
         keys: [ "ForwardButton", "Alt+Right" ]
-        id: forward
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.forward()
