@@ -17,11 +17,11 @@ Item {
     states: [
         State {
             name: "visible"
-            PropertyChanges { target: root; visible: true }
+            PropertyChanges { target: root; visible: true; height: mdl.height + rect.height; }
         },
         State {
             name: "hidden"
-            PropertyChanges { target: root; visible: false }
+            PropertyChanges { target: root; visible: false ; height: 0; }
         }
     ]
 
