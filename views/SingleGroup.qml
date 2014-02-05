@@ -14,6 +14,17 @@ Item {
         model.hidden = false
     }
 
+    states: [
+        State {
+            name: "visible"
+            PropertyChanges { target: root; visible: true }
+        },
+        State {
+            name: "hidden"
+            PropertyChanges { target: root; visible: false }
+        }
+    ]
+
     Item {
         id: rect
         height: 20
@@ -224,6 +235,12 @@ Item {
 
         onCountChanged: {
             items.text = count + " items"
+
+            if(count > 0) {
+                root.state = "visible"
+            } else {
+                root.state = "hidden"
+            }
         }
     }
 }
