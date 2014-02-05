@@ -194,6 +194,8 @@ Rectangle {
                     drag.axis: Drag.XAxis
                     drag.target: parent
                     drag.threshold: 0.0
+                    drag.minimumX: 0
+                    drag.maximumX: appRoot.width - 100
                 }
             }
 

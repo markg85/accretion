@@ -98,6 +98,9 @@ Item {
                 cursorShape = Qt.SizeHorCursor
             }
 
+            drag.minimumX: 100
+            drag.maximumX: root.width - 100
+
             onDoubleClicked: {
                 viewSplitter.state = "random"
                 viewSplitter.state = "toSplit"
