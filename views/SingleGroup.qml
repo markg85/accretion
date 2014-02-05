@@ -11,7 +11,7 @@ Item {
     property var groupKey: ""
 
     Component.onCompleted: {
-        model.hidden = false
+        model.hiddenFilesVisible = false
     }
 
     states: [
