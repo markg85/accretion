@@ -18,6 +18,7 @@ Item {
     signal back()
     signal forward()
     signal filter()
+    signal esc()
 
     // refresh
     Shortcut {
@@ -92,6 +93,15 @@ Item {
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.filter()
+        }
+    }
+
+    // Escape (cancel input fields.. those kind of things.
+    Shortcut {
+        keys: "Esc"
+        onActivated: {
+            console.log("JS: " + keys + " pressed.")
+            root.esc()
         }
     }
 }

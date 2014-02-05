@@ -19,6 +19,8 @@ Rectangle {
         onReload: splitView.reload()
         onBack: breadCrumbBar.model.previous()
         onForward: breadCrumbBar.model.next()
+        onFilter: splitView.activeViewContainer.toggleFilter()
+        onEsc: splitView.activeViewContainer.hideFilter()
     }
 
     // Load the "FontAwesome" font for the monochrome icons.

@@ -1,5 +1,6 @@
 import QtQuick 2.1
 import kdirchainmodel 1.0 as KDirchain
+import QtGraphicalEffects 1.0
 import "views" as Views
 import "javascript/util.js" as JsUtil
 
@@ -20,6 +21,14 @@ Item {
     function exec(name) {
         Qt.openUrlExternally(url + "/" + name)
         console.log(url + "/" + name)
+    }
+
+    function toggleFilter() {
+        filterPlaceholder.visible = !filterPlaceholder.visible
+    }
+
+    function hideFilter() {
+        filterPlaceholder.visible = false
     }
 
     Behavior on opacity {
@@ -124,6 +133,30 @@ Item {
         delegate: Views.SingleGroup {
             model: dirModel.modelAtIndex(index)
             groupKey: (display) ? display : "";
+        }
+    }
+
+    Rectangle {
+        id: filterPlaceholder
+        height: 30
+        width: parent.width - 4
+        y: parent.height - height - 4
+        border.color: JsUtil.Theme.ViewContainer.ItemStates.hover.borderColor
+        border.width: 1
+        visible: false
+        color: "white"
+        radius: 5
+
+        TextInput {
+            id: inp
+            width: parent.width - 20
+            focus: filterPlaceholder.visible
+            font.pointSize: 15
+            anchors.verticalCenter: parent.verticalCenter
+            x: 10
+            onTextChanged: {
+                dirModel.setInputFilter(text)
+            }
         }
     }
 
