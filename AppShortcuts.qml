@@ -17,6 +17,7 @@ Item {
     signal paste()
     signal back()
     signal forward()
+    signal filter()
 
     // refresh
     Shortcut {
@@ -82,6 +83,15 @@ Item {
         onActivated: {
             console.log("JS: " + keys + " pressed.")
             root.forward()
+        }
+    }
+
+    // Filter (initiate filter in currently active view)
+    Shortcut {
+        keys: "Ctrl+i"
+        onActivated: {
+            console.log("JS: " + keys + " pressed.")
+            root.filter()
         }
     }
 }
