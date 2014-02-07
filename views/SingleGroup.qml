@@ -180,7 +180,6 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     width: items.width - imageIcon.width - 10 // that 10 is for 2x spacing
                     id: content
-                    color: JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
                     text: baseName + possibleExtension
                     elide: Text.ElideRight
                     textFormat: Text.StyledText
@@ -202,7 +201,6 @@ Item {
                     id: normalTextTwo
                     width: date.width
                     anchors.verticalCenter: parent.verticalCenter
-                    color: JsUtil.Theme.ViewContainer.ContentStates.normal.color
                     text: Qt.formatDateTime(modificationTime, "dd/MM/yyyy hh:mm.ss")
                     elide: Text.ElideRight
                 }
@@ -210,7 +208,6 @@ Item {
                     id: normalTextThree
                     width: type.width
                     anchors.verticalCenter: parent.verticalCenter
-                    color: JsUtil.Theme.ViewContainer.ContentStates.normal.color
                     text: JsUtil.humanReadableSize(size)
                     elide: Text.ElideRight
                 }

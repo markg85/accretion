@@ -24,11 +24,15 @@ Item {
     }
 
     function toggleFilter() {
-        filterPlaceholder.visible = !filterPlaceholder.visible
+        if(filterPlaceholder.state == "hidden") {
+            filterPlaceholder.state = "visible"
+        } else {
+            filterPlaceholder.state = "hidden"
+        }
     }
 
     function hideFilter() {
-        filterPlaceholder.visible = false
+        filterPlaceholder.state = "hidden"
     }
 
     Behavior on opacity {
@@ -120,43 +124,65 @@ Item {
 //        }
 //    ]
 
-    ListView {
-        id: views
+    Rectangle {
+        id: subViewContainer
         anchors.fill: parent
-        model: dirModel
         opacity: activeView ? 1 : 0.5
 
-        Behavior on opacity {
-            NumberAnimation { duration: 100 }
-        }
+        ListView {
+            id: views
+            model: dirModel
+            anchors.fill: parent
+            Behavior on opacity {
+                NumberAnimation { duration: 100 }
+            }
 
-        delegate: Views.SingleGroup {
-            model: dirModel.modelAtIndex(index)
-            groupKey: (display) ? display : "";
+            delegate: Views.SingleGroup {
+                model: dirModel.modelAtIndex(index)
+                groupKey: (display) ? display : "";
+            }
         }
     }
 
-    Rectangle {
+    FancyBlurredInput {
         id: filterPlaceholder
+        bgSource: subViewContainer
         height: 30
-        width: parent.width - 4
+        width: parent.width - 10
+        anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - height - 4
-        border.color: JsUtil.Theme.ViewContainer.ItemStates.hover.borderColor
-        border.width: 1
-        visible: false
-        color: "white"
-        radius: 5
+        state: "hidden"
 
-        TextInput {
-            id: inp
-            width: parent.width - 20
-            focus: filterPlaceholder.visible
-            font.pointSize: 15
-            anchors.verticalCenter: parent.verticalCenter
-            x: 10
-            onTextChanged: {
-                dirModel.setInputFilter(text)
+        states: [
+            State {
+                name: "hidden"
+                PropertyChanges { target: filterPlaceholder; y: parent.height }
+            },
+            State {
+                name: "visible"
+                PropertyChanges { target: filterPlaceholder; y: parent.height - height - 4 }
             }
+        ]
+
+        transitions: [
+            Transition {
+                to: "hidden"
+                SequentialAnimation {
+                    PropertyAnimation { property: "y"; duration: 100; easing.type: Easing.OutBack }
+                    PropertyAction { target: filterPlaceholder; property: "visible"; value: false }
+                }
+            },
+            Transition {
+                to: "visible"
+                SequentialAnimation {
+                    PropertyAction { target: filterPlaceholder; property: "visible"; value: true }
+                    PropertyAnimation { property: "y"; duration: 100; easing.type: Easing.OutBack }
+                }
+            }
+        ]
+
+        onTextChanged: {
+            dirModel.setInputFilter(text)
         }
     }
 
