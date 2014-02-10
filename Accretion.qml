@@ -165,7 +165,7 @@ Rectangle {
             width: parent.width
             height: appRoot.height - parent.totalHeadHight
 
-            Item {
+            LeftMenu {
                 anchors.left: parent.left
                 anchors.right: spacer.left
                 height: parent.height
@@ -175,7 +175,7 @@ Rectangle {
                 width: 5
                 height: parent.height
                 id: spacer
-                x: 100
+                x: 150
 
 
                 Rectangle {
