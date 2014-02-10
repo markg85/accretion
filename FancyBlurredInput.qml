@@ -1,10 +1,13 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.1
 
 Item {
     id: root
     property Item bgSource: undefined
     property alias text: ti.text
+    property int margins: height * 0.2
+    property alias icon: loader.sourceComponent
 
     ShaderEffectSource {
         id: effect_source
@@ -68,19 +71,22 @@ Item {
         border.width: 1
         radius: 5
         color: "transparent"
-        property int saneMargin: height * 0.2
         Item {
             anchors.fill: parent
-            anchors.margins: container.saneMargin
+            anchors.margins: root.margins
             clip: true // Prevent the text from being drawn outside of this item
 
-            TextInput {
-                id: ti
-                font.pointSize: container.saneMargin * 2
-                color: "#555555"
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.width
-                focus: root.visible
+            RowLayout {
+                anchors.fill: parent
+                Loader { id: loader }
+                TextInput {
+                    id: ti
+                    font.pointSize: root.margins * 2
+                    color: "#555555"
+                    anchors.verticalCenter: parent.verticalCenter
+                    Layout.fillWidth: true
+                    focus: root.visible
+                }
             }
         }
     }

@@ -128,6 +128,7 @@ Item {
         id: subViewContainer
         anchors.fill: parent
         opacity: activeView ? 1 : 0.5
+        color: JsUtil.Theme.Application.background.color
 
         ListView {
             id: views
@@ -151,6 +152,12 @@ Item {
         width: parent.width - 10
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - height - 4
+        icon: FontAwesomeIcon {
+            width: filterPlaceholder.height - (filterPlaceholder.margins * 2)
+            height: filterPlaceholder.height - (filterPlaceholder.margins * 2)
+            iconName: JsUtil.FA.Filter
+//            iconName: JsUtil.FA.Search
+        }
         state: "hidden"
 
         states: [
