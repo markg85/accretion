@@ -154,6 +154,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - height - 4
         icon: FontAwesomeIcon {
+            clickable: false
             width: filterPlaceholder.height - (filterPlaceholder.margins * 2)
             height: filterPlaceholder.height - (filterPlaceholder.margins * 2)
             iconName: JsUtil.FA.Filter

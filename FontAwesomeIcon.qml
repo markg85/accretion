@@ -6,7 +6,8 @@ Item {
     id: faRoot
     property alias font: faIcon.font
     property string iconName: ""
-    property alias enableMouseEvents: mouseEvents.visible
+    property alias clickable: mouseEvents.enabled // A disabled MouseArea makes it unclickable
+    property alias disabled: mouseEvents.visible // Removing the mousearea from visibility makes it act like a disabled input field (slightly more grey tone)
 
     signal clicked()
 

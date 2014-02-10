@@ -69,7 +69,7 @@ Rectangle {
                 width: parent.height
                 height: parent.height
                 iconName: JsUtil.FA.ChevronLeft
-                enableMouseEvents: breadCrumbBar.model.hasPrevious
+                disabled: breadCrumbBar.model.hasPrevious
 
                 onClicked: {
                     breadCrumbBar.model.previous()
@@ -81,7 +81,7 @@ Rectangle {
                 width: parent.height
                 height: parent.height
                 iconName: JsUtil.FA.ChevronRight
-                enableMouseEvents: breadCrumbBar.model.hasNext
+                disabled: breadCrumbBar.model.hasNext
 
                 onClicked: {
                     breadCrumbBar.model.next()
