@@ -6,6 +6,7 @@ Item {
     id: root
     property Item bgSource: undefined
     property alias text: ti.text
+    property alias placeholderText: placeholder.text
     property int margins: height * 0.2
     property alias icon: loader.sourceComponent
 
@@ -86,6 +87,19 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     Layout.fillWidth: true
                     focus: root.visible
+                    onTextChanged: {
+                        if(text !== "") {
+                            placeholder.visible = false
+                        } else {
+                            placeholder.visible = true
+                        }
+                    }
+
+                    Text {
+                        id: placeholder
+                        font: parent.font
+                        opacity: 0.2
+                    }
                 }
             }
         }

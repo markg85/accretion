@@ -150,6 +150,7 @@ Item {
         bgSource: subViewContainer
         height: 30
         width: parent.width - 10
+        placeholderText: "Filter"
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - height - 4
         icon: FontAwesomeIcon {
