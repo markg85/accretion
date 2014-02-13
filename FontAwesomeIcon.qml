@@ -1,62 +1,57 @@
 import QtQuick 2.1
+import QtQuick.Layouts 1.1
 import "javascript/util.js" as JsUtil
 
 
 Item {
     id: faRoot
-    property alias font: faIcon.font
+    property alias font: faIconText.font
     property string iconName: ""
+    property alias text: faText.text
     property alias clickable: mouseEvents.enabled // A disabled MouseArea makes it unclickable
     property alias disabled: mouseEvents.visible // Removing the mousearea from visibility makes it act like a disabled input field (slightly more grey tone)
 
     signal clicked()
+    signal entered()
+    signal exited()
 
-    states: [
-        State {
-            name: "normal"
-            PropertyChanges { target: faIconAnimation; scale: 0.0 }
-            PropertyChanges { target: faIconAnimation; opacity: 1.0 }
-        },
-        State {
-            name: "pressed"
-            PropertyChanges { target: faIconAnimation; scale: 2.0 }
-        }
-    ]
-    transitions: [
-        Transition {
-            to: "pressed"
+    onEntered: {
+        faIconText.color = JsUtil.Theme.ToolButtons.hover
+    }
 
-            ParallelAnimation {
-                id: parAnim
-                NumberAnimation { target: faIconAnimation; properties: "scale"; from: 0.0; to: 2.0; duration: 150 }
-                NumberAnimation { target: faIconAnimation; properties: "opacity"; to: 0.0; duration: 150 }
-            }
-        }
-    ]
+    onExited: {
+        faIconText.color = JsUtil.Theme.ToolButtons.normal
+    }
 
-    Item {
+    RowLayout {
         height: parent.height
         width: parent.width
+        spacing: 0
 
         Item {
-            anchors.fill: parent
+            id: faIcon
+            width: parent.height
+            height: parent.height
+
             Text {
+                id: faIconText
                 smooth: true
                 anchors.centerIn: parent
-                id: faIcon
                 text: faRoot.iconName
                 color: JsUtil.Theme.ToolButtons.normal
                 font.family: "FontAwesome"
                 font.pointSize: 15 // 15 seems like a nice default
             }
-            Text {
-                smooth: true
-                opacity: 1.0
-                scale: 0.0
-                anchors.centerIn: parent
-                id: faIconAnimation
-                text: faRoot.iconName
-                font: faIcon.font
+        }
+
+        Text {
+            id: faText
+            Layout.fillWidth: true
+            color: faIconText.color
+            onTextChanged: {
+                if(text == "") {
+                    visible = false
+                }
             }
         }
     }
@@ -66,30 +61,16 @@ Item {
         anchors.fill: parent
         enabled: true
         hoverEnabled: true
+        onClicked: faRoot.clicked()
+        onEntered: faRoot.entered()
+        onExited: faRoot.exited()
 
         onVisibleChanged: {
             if(!visible) {
-                faIcon.color = JsUtil.Theme.ToolButtons.disabledColor
+                faIconText.color = JsUtil.Theme.ToolButtons.disabledColor
             } else {
-                faIcon.color = JsUtil.Theme.ToolButtons.normal
+                faIconText.color = JsUtil.Theme.ToolButtons.normal
             }
-        }
-
-        onClicked: {
-            if(faRoot.state == "pressed") {
-                faRoot.state = "normal" // reset it to normal
-            }
-
-            faRoot.clicked()
-            faRoot.state = "pressed"
-        }
-
-        onEntered: {
-            faIcon.color = JsUtil.Theme.ToolButtons.hover
-        }
-
-        onExited: {
-            faIcon.color = JsUtil.Theme.ToolButtons.normal
         }
     }
 }

@@ -24,6 +24,7 @@ Item {
         id: v
         anchors.fill: parent
         model: colors
+        interactive: false
 
 //        displaced: Transition {
 //            NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
@@ -50,33 +51,27 @@ Item {
 
             width: parent.width
             height: 30
+            hoverEnabled: true
+
+            onEntered: r.entered()
+            onExited: r.exited()
+            onClicked: r.clicked()
 
             drag.target: r
             drag.threshold: 0.0
 
-            RowLayout {
+            FontAwesomeIcon {
                 id: r
                 width: delegateRoot.width
                 height: delegateRoot.height
-
-                FontAwesomeIcon {
-                    width: parent.height
-                    height: parent.height
-                    iconName: model.icon
-                }
-
+                iconName: model.icon
+                text: model.text
+                clickable: false // we manage hover/entered/clicked from the parent mousearea
 
                 Drag.active: delegateRoot.drag.active
                 Drag.source: delegateRoot
                 Drag.hotSpot.x: 36
                 Drag.hotSpot.y: 5
-
-                Text {
-                    Layout.fillWidth: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: model.text
-                    color: JsUtil.Theme.ViewContainer.ContentStates.normal.highlight
-                }
 
                 Drag.onActiveChanged: {
                     if(Drag.active) {
