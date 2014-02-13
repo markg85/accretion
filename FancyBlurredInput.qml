@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1
+import "javascript/util.js" as JsUtil
 
 Item {
     id: root
@@ -9,6 +10,8 @@ Item {
     property alias placeholderText: placeholder.text
     property int margins: height * 0.2
     property alias icon: loader.sourceComponent
+
+    signal close()
 
     ShaderEffectSource {
         id: effect_source
@@ -100,6 +103,12 @@ Item {
                         font: parent.font
                         opacity: 0.2
                     }
+                }
+                FontAwesomeIcon {
+                    height: loader.height
+                    width: loader.height
+                    iconName: JsUtil.FA.Remove
+                    onClicked: root.close()
                 }
             }
         }

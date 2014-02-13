@@ -153,6 +153,7 @@ Item {
         placeholderText: "Filter"
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - height - 4
+        onClose: viewRoot.hideFilter()
         icon: FontAwesomeIcon {
             clickable: false
             width: filterPlaceholder.height - (filterPlaceholder.margins * 2)
