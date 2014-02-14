@@ -77,9 +77,9 @@ Item {
             }
         ]
 
-        Behavior on x {
-            NumberAnimation { duration: 100; easing.type: Easing.OutBack }
-        }
+//        Behavior on x {
+//            NumberAnimation { duration: 100; easing.type: Easing.OutBack }
+//        }
 
         Rectangle {
             width: 1
