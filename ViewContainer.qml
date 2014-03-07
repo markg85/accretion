@@ -140,7 +140,7 @@ Item {
 
             delegate: Views.SingleGroup {
                 model: dirModel.modelAtIndex(index)
-                groupKey: (display) ? display : "";
+                groupKey: (groupedName) ? groupedName : "";
             }
         }
     }
