@@ -170,7 +170,7 @@ Item {
                         anchors.centerIn: parent
                         source: "image://mime/" + mimeIcon
                         asynchronous: true
-                        cache: false
+                        cache: true
                     }
                 }
 
