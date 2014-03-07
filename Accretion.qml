@@ -199,7 +199,7 @@ Rectangle {
                 }
             }
 
-            SplitView {
+            ASplitView {
                 id: splitView
                 height: parent.height
                 anchors.left: spacer.right
