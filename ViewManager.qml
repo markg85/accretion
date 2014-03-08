@@ -1,15 +1,14 @@
 import QtQuick 2.1
 
 Item {
-    property var views: []
     property ViewContainer activeView: undefined
 
     function registerView(view) {
-        views.push(view)
-
         if(!activeView) {
             activeView = view
             activeView.activeView = true
+        } else {
+            view.activeView = false
         }
     }
 

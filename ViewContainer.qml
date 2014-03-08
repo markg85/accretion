@@ -11,7 +11,7 @@ Item {
     signal reload()
     property alias url: bcModel.url
     property alias urlModel: bcModel
-    property bool activeView: true
+    property bool activeView: false
     property color viewBackgroundColor: (activeView) ? JsUtil.Theme.ViewContainer.Views.active : JsUtil.Theme.ViewContainer.Views.inactive
 
     Component.onCompleted: {
@@ -62,17 +62,9 @@ Item {
         onExited: {
             overlay.opacity = 1
         }
-        onClicked: {
-            if(!viewRoot.activeView) {
-                viewRoot.activeView = true
-            }
-        }
+        onClicked: viewManager.setActive(viewRoot)
 
-        onWheel: {
-            if(!viewRoot.activeView) {
-                viewRoot.activeView = true
-            }
-        }
+        onWheel: viewManager.setActive(viewRoot)
 
         z: viewRoot.activeView ? -10 : 1
         enabled: !viewRoot.activeView
