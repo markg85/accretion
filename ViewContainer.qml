@@ -8,6 +8,7 @@ Item {
 
     id: viewRoot
     opacity: enabled ? 1.0 : 0.0
+    clip: true
     signal reload()
     property alias url: bcModel.url
     property alias urlModel: bcModel

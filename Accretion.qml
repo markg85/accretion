@@ -176,7 +176,6 @@ Rectangle {
             }
 
             ViewContainer {
-                clip: true
                 url: "file:///home/kde-devel"
             }
         }
