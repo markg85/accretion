@@ -161,6 +161,29 @@ Rectangle {
             }
         }
 
+        KDirchain.SplitView {
+            id: splitView
+            width: parent.width
+            height: appRoot.height - parent.totalHeadHight
+
+            property alias activeViewContainer: v
+
+            resizeHandleDelegate: VSplitHandle{}
+
+            LeftMenu {
+                width: 150
+            }
+
+            ViewContainer {
+                id: v
+                clip: true
+                activeView: true
+                url: "file:///home/kde-devel"
+            }
+        }
+
+
+        /*
         Item {
             width: parent.width
             height: appRoot.height - parent.totalHeadHight
@@ -208,5 +231,6 @@ Rectangle {
                 splitView: false
             }
         }
+        */
     }
 }

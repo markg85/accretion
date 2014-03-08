@@ -16,7 +16,7 @@ Item {
     ShaderEffectSource {
         id: effect_source
         hideSource: false
-        sourceItem: bgSource
+        // sourceItem: bgSource
         sourceRect: Qt.rect(root.x, root.y, root.width, root.height)
         width: sourceRect.width
         height: sourceRect.height
