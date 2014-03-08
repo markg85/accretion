@@ -30,6 +30,7 @@ Rectangle {
 
     ViewManager {
         id: viewManager
+        defaultUrl: "file:///home/kde-devel"
     }
 
     Column {
@@ -175,9 +176,7 @@ Rectangle {
                 width: 150
             }
 
-            ViewContainer {
-                url: "file:///home/kde-devel"
-            }
+            ViewContainer { }
         }
     }
 }
