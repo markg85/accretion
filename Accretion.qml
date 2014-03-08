@@ -16,16 +16,20 @@ Rectangle {
             splitView.splitView = !splitView.splitView
         }
 
-        onReload: splitView.reload()
+        onReload: viewManager.reload()
         onBack: breadCrumbBar.model.previous()
         onForward: breadCrumbBar.model.next()
-        onFilter: splitView.activeViewContainer.toggleFilter()
-        onEsc: splitView.activeViewContainer.hideFilter()
+        onFilter: viewManager.toggleFilter()
+        onEsc: viewManager.hideFilter()
     }
 
     // Load the "FontAwesome" font for the monochrome icons.
     FontLoader {
         source: "fonts/fontawesome-webfont.ttf"
+    }
+
+    ViewManager {
+        id: viewManager
     }
 
     Column {
@@ -94,7 +98,7 @@ Rectangle {
                 iconName: JsUtil.FA.Refresh
 
                 onClicked: {
-                    splitView.reload()
+                    viewManager.reload()
                 }
             }
 
@@ -102,7 +106,7 @@ Rectangle {
                 id: breadCrumbBar
                 height: parent.height
                 Layout.fillWidth: true
-                model: splitView.activeViewContainer.urlModel
+                model: viewManager.activeView.urlModel
             }
 
             FontAwesomeIcon {
@@ -165,9 +169,6 @@ Rectangle {
             id: splitView
             width: parent.width
             height: appRoot.height - parent.totalHeadHight
-
-            property alias activeViewContainer: v
-
             resizeHandleDelegate: VSplitHandle{}
 
             LeftMenu {
@@ -177,60 +178,8 @@ Rectangle {
             ViewContainer {
                 id: v
                 clip: true
-                activeView: true
                 url: "file:///home/kde-devel"
             }
         }
-
-
-        /*
-        Item {
-            width: parent.width
-            height: appRoot.height - parent.totalHeadHight
-
-            LeftMenu {
-                anchors.left: parent.left
-                anchors.right: spacer.left
-                height: parent.height
-            }
-
-            Item {
-                width: 5
-                height: parent.height
-                id: spacer
-                x: 150
-
-
-                Rectangle {
-                    x: 1
-                    width: 1
-                    height: parent.height
-                    color: JsUtil.Theme.Application.divider.color
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: {
-                        cursorShape = Qt.SizeHorCursor
-                    }
-                    drag.axis: Drag.XAxis
-                    drag.target: parent
-                    drag.threshold: 0.0
-                    drag.minimumX: 0
-                    drag.maximumX: appRoot.width - 100
-                }
-            }
-
-            ASplitView {
-                id: splitView
-                height: parent.height
-                anchors.left: spacer.right
-                anchors.right: parent.right
-                url: "file:///home/kde-devel"
-                splitView: false
-            }
-        }
-        */
     }
 }

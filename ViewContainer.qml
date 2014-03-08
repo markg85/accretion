@@ -14,6 +14,10 @@ Item {
     property bool activeView: true
     property color viewBackgroundColor: (activeView) ? JsUtil.Theme.ViewContainer.Views.active : JsUtil.Theme.ViewContainer.Views.inactive
 
+    Component.onCompleted: {
+        viewManager.registerView(viewRoot)
+    }
+
     function append(basename) {
         bcModel.append(basename)
     }
