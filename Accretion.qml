@@ -12,10 +12,7 @@ Rectangle {
     // Only ever include this line ONCE throughout the application!
     AppShortcuts {
         // Split view keyboars shortcut
-        onSplitViewActivated: {
-            splitView.splitView = !splitView.splitView
-        }
-
+        onSplitViewActivated: viewManager.splitViewToggle()
         onReload: viewManager.reload()
         onBack: breadCrumbBar.model.previous()
         onForward: breadCrumbBar.model.next()
@@ -152,9 +149,7 @@ Rectangle {
                             height: parent.height
                             iconName: JsUtil.FA.Columns
 
-                            onClicked: {
-                                splitView.splitView = !splitView.splitView
-                            }
+                            onClicked: viewManager.splitViewToggle()
                         }
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
@@ -172,11 +167,19 @@ Rectangle {
             height: appRoot.height - parent.totalHeadHight
             resizeHandleDelegate: VSplitHandle{}
 
+            Component.onCompleted: {
+                viewManager.addViewContainer()
+            }
+
+            Component {
+                id: viewContainerComp
+
+                ViewContainer { }
+            }
+
             LeftMenu {
                 width: 150
             }
-
-            ViewContainer { }
         }
     }
 }
