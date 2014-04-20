@@ -5,94 +5,82 @@ import "../javascript/util.js" as JsUtil
 
 Item {
     id: root
-    width: parent.width
-    height: mdl.height + rect.height
     property var model: 0
     property var groupKey: ""
+    readonly property int itemHeight: 42
 
-    Component.onCompleted: {
-        model.hiddenFilesVisible = false
-    }
 
-    states: [
-        State {
-            name: "visible"
-            PropertyChanges { target: root; visible: true; height: mdl.height + rect.height; }
-        },
-        State {
-            name: "hidden"
-            PropertyChanges { target: root; visible: false ; height: 0; }
-        }
-    ]
+    Component {
+        id: sectionDelegate
+        Item {
+            id: rect
+            height: 20
+            width: root.width
+            Row {
+                anchors.fill: parent
+                spacing: 5
 
-    Item {
-        id: rect
-        height: 20
-        width: parent.width
-        Row {
-            anchors.fill: parent
-            spacing: 5
+                Text {
+                    id: items
+                    width: parent.width * 0.50
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.italic: true
+                    font.bold: true
+                    text: section + "0 items"
+                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    MouseArea {
+                        anchors.fill: parent
+                        property int order: Qt.AscendingOrder
+                        onClicked: {
+                            root.model.sort(KDirchain.DirListModel.Name, section, order)
+                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+                        }
+                    }
+                }
 
-            Text {
-                id: items
-                width: parent.width * 0.50
-                anchors.verticalCenter: parent.verticalCenter
-                font.italic: true
-                font.bold: true
-                text: "0 items"
-                color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                MouseArea {
-                    anchors.fill: parent
-                    property int order: Qt.AscendingOrder
-                    onClicked: {
-                        root.model.sort(KDirchain.DirListModel.Name, order)
-                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+                Text {
+                    id: date
+                    width: parent.width * 0.30
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.italic: true
+                    font.bold: true
+                    text: "date"
+                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    MouseArea {
+                        anchors.fill: parent
+                        property int order: Qt.AscendingOrder
+                        onClicked: {
+                            root.model.sort(KDirchain.DirListModel.ModificationTime, section, order)
+                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+                        }
+                    }
+                }
+
+                Text {
+                    id: type
+                    width: parent.width * 0.20
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.italic: true
+                    font.bold: true
+                    text: "size"
+                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    MouseArea {
+                        anchors.fill: parent
+                        property int order: Qt.AscendingOrder
+                        onClicked: {
+                            root.model.sort(KDirchain.DirListModel.Size, section, order)
+                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+                        }
                     }
                 }
             }
 
-            Text {
-                id: date
-                width: parent.width * 0.30
-                anchors.verticalCenter: parent.verticalCenter
-                font.italic: true
-                font.bold: true
-                text: "date"
-                color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                MouseArea {
-                    anchors.fill: parent
-                    property int order: Qt.AscendingOrder
-                    onClicked: {
-                        root.model.sort(KDirchain.DirListModel.ModificationTime, order)
-                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-                    }
-                }
+            Rectangle {
+                width: parent.width
+                height: 1
+                anchors.bottom: parent.bottom
+                color: JsUtil.Theme.Application.divider.color
             }
-
-            Text {
-                id: type
-                width: parent.width * 0.20
-                anchors.verticalCenter: parent.verticalCenter
-                font.italic: true
-                font.bold: true
-                text: "size"
-                color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                MouseArea {
-                    anchors.fill: parent
-                    property int order: Qt.AscendingOrder
-                    onClicked: {
-                        root.model.sort(KDirchain.DirListModel.Size, order)
-                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-                    }
-                }
-            }
-        }
-
-        Rectangle {
-            width: parent.width
-            height: 1
-            anchors.bottom: parent.bottom
-            color: JsUtil.Theme.Application.divider.color
         }
     }
 
@@ -101,7 +89,7 @@ Item {
         Rectangle {
             id: itemBackground
             width: root.width
-            height: 42
+            height: root.itemHeight
             color: JsUtil.Theme.ViewContainer.ItemStates.normal.color
             border.color: JsUtil.Theme.ViewContainer.ItemStates.normal.borderColor
             border.width: 1
@@ -155,6 +143,7 @@ Item {
                     width: 0.1
                     height: 32
                 }
+
                 Rectangle {
                     id: imageIcon
                     width: 32
@@ -162,6 +151,7 @@ Item {
                     color: JsUtil.Theme.ViewContainer.ItemStates.normal.imageBackground
                     border.color: JsUtil.Theme.ViewContainer.ItemStates.normal.imageBorderColor
                     border.width: 1
+
                     Image {
                         width: 28
                         height: 28
@@ -178,11 +168,12 @@ Item {
                     property string extensionColor: JsUtil.Theme.ViewContainer.ContentStates.normal.color
                     property string possibleExtension: (extension.length > 0) ? ".<font color=\""+extensionColor+"\">"+extension+"</font>" : ""
                     anchors.verticalCenter: parent.verticalCenter
-                    width: items.width - imageIcon.width - 10 // that 10 is for 2x spacing
+                    width: parent.width * 0.50 - imageIcon.width - 10 // that 10 is for 2x spacing
                     id: content
                     text: baseName + possibleExtension
                     elide: Text.ElideRight
                     textFormat: Text.StyledText
+
                     MouseArea {
                         anchors.fill: parent
                         propagateComposedEvents: true
@@ -199,14 +190,15 @@ Item {
 
                 Text {
                     id: normalTextTwo
-                    width: date.width
+                    width: parent.width * 0.30
                     anchors.verticalCenter: parent.verticalCenter
                     text: Qt.formatDateTime(modificationTime, "dd/MM/yyyy hh:mm.ss")
                     elide: Text.ElideRight
                 }
+
                 Text {
                     id: normalTextThree
-                    width: type.width
+                    width: parent.width * 0.20
                     anchors.verticalCenter: parent.verticalCenter
                     text: JsUtil.humanReadableSize(size)
                     elide: Text.ElideRight
@@ -225,18 +217,57 @@ Item {
 
     ListView {
         id: mdl
-        y: rect.height
-        height: count * 42
+
+        property int lastStartId: 0
+        property int lastEndId: 0
+
+        anchors.fill: parent
         model: parent.model
         delegate: comp
+        displaced: Transition {
+            NumberAnimation { properties: "x"; duration: 100; easing.type: Easing.InOutQuad }
+        }
 
-        onCountChanged: {
-            items.text = count + " items"
+        remove: Transition {
+            ParallelAnimation {
+                NumberAnimation { property: "opacity"; to: 0; duration: 100 }
+                NumberAnimation { properties: "x"; to: 100; duration: 100; easing.type: Easing.InOutQuad }
+            }
+        }
 
-            if(count > 0) {
-                root.state = "visible"
-            } else {
-                root.state = "hidden"
+        add: Transition {
+            ParallelAnimation {
+                NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 100 }
+                NumberAnimation { properties: "x"; from: 100; to: 0; duration: 100; easing.type: Easing.InOutQuad }
+            }
+        }
+
+        section.property: "mimeIcon"
+        section.delegate: sectionDelegate
+
+        onContentYChanged: {
+            var endId = indexAt(root.width - 1, contentY + root.height)
+            var startId = indexAt(0, contentY)
+            // We can't use this...
+            if(startId == -1 && endId == -1) {
+                return;
+            }
+
+            // If we scroll till the end (or even over it) set the endId value to the count value
+            if(endId == -1 && startId > -1) {
+                endId = count
+            }
+
+            // If we sroll to the beginning (or before it) set startId to 0.
+            if(startId == -1 && endId > -1) {
+                startId = 0
+            }
+
+            // If we have new values (that aren't the same since last time) then we update the values and tell the model of the new values we would like to see sorted
+            if(lastStartId != startId || lastEndId != endId) {
+                lastStartId = startId
+                lastEndId = endId
+                parent.model.requestSortForItems(lastStartId, lastEndId)
             }
         }
     }
