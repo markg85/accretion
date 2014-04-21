@@ -26,7 +26,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     font.italic: true
                     font.bold: true
-                    text: section + "0 items"
+                    text: root.model.numOfItemsForGroup(section) + " items"
                     color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
                     MouseArea {
                         anchors.fill: parent
