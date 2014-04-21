@@ -267,7 +267,9 @@ Item {
             if(lastStartId != startId || lastEndId != endId) {
                 lastStartId = startId
                 lastEndId = endId
-                parent.model.requestSortForItems(lastStartId, lastEndId)
+
+                // Enable the line below for on-demand sorting.
+                // parent.model.requestSortForItems(lastStartId, lastEndId)
             }
         }
     }
