@@ -146,16 +146,11 @@ Rectangle {
                         anchors.fill: parent
                         spacing: 5
                         Components.FontAwesomeIcon {
-                            width: parent.height
-                            height: parent.height
+                            width: parent.width
+                            height: 30
                             iconName: JsUtil.FA.Columns
-
-                            onClicked: viewManager.splitViewToggle()
-                        }
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: JsUtil.Theme.BreadCrumb.fontColorActive.normal
                             text: "Split view"
+                            onClicked: viewManager.splitViewToggle()
                         }
                     }
                 }
