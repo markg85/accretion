@@ -2,6 +2,7 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import kdirchainmodel 1.0 as KDirchain
 import "javascript/util.js" as JsUtil
+import "components" as Components
 
 Rectangle {
     id: appRoot
@@ -66,7 +67,7 @@ Rectangle {
             width: parent.width
             height: parent.headRowHeight
 
-            FontAwesomeIcon {
+            Components.FontAwesomeIcon {
                 id: backButton
                 width: parent.height
                 height: parent.height
@@ -78,7 +79,7 @@ Rectangle {
                 }
             }
 
-            FontAwesomeIcon {
+            Components.FontAwesomeIcon {
                 id: forwardButton
                 width: parent.height
                 height: parent.height
@@ -90,7 +91,7 @@ Rectangle {
                 }
             }
 
-            FontAwesomeIcon {
+            Components.FontAwesomeIcon {
                 width: parent.height
                 height: parent.height
                 iconName: JsUtil.FA.Refresh
@@ -107,7 +108,7 @@ Rectangle {
                 model: viewManager.activeView.urlModel
             }
 
-            FontAwesomeIcon {
+            Components.FontAwesomeIcon {
                 id: rightButtons
                 width: parent.height
                 height: parent.height
@@ -144,7 +145,7 @@ Rectangle {
                     Row {
                         anchors.fill: parent
                         spacing: 5
-                        FontAwesomeIcon {
+                        Components.FontAwesomeIcon {
                             width: parent.height
                             height: parent.height
                             iconName: JsUtil.FA.Columns

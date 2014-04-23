@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import "javascript/util.js" as JsUtil
+import "components" as Components
 
 Item {
     id: root
@@ -60,7 +61,7 @@ Item {
             drag.target: r
             drag.threshold: 0.0
 
-            FontAwesomeIcon {
+            Components.FontAwesomeIcon {
                 id: r
                 width: delegateRoot.width
                 height: delegateRoot.height

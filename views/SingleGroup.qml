@@ -10,7 +10,6 @@ Item {
     property var groupKey: ""
     readonly property int itemHeight: 42
 
-
     Component {
         id: sectionDelegate
         Item {
@@ -35,7 +34,6 @@ Item {
                     onClicked: {
                         root.model.sort(KDirchain.DirListModel.Name, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-
                     }
                 }
 
@@ -53,7 +51,6 @@ Item {
                     onClicked: {
                         root.model.sort(KDirchain.DirListModel.ModificationTime, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-
                     }
                 }
 
@@ -71,7 +68,6 @@ Item {
                     onClicked: {
                         root.model.sort(KDirchain.DirListModel.Size, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-
                     }
                 }
             }
