@@ -26,7 +26,16 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     font.italic: true
                     font.bold: true
-                    text: root.model.numOfItemsForGroup(section) + " items"
+                    text: {
+                        var itemCount = 0
+                        if(root.model.groupby == KDirchain.DirListModel.None) {
+                            itemCount = mdl.count
+                        } else {
+                            itemCount = root.model.numOfItemsForGroup(section)
+                        }
+                        return itemCount + " items"
+                    }
+
                     colorNormal: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
                     colorHover: JsUtil.Theme.ViewContainer.HeaderNames.hover.color
                     property int order: Qt.AscendingOrder
@@ -241,7 +250,8 @@ Item {
         }
 
         section.property: root.model.stringGroupRole
-        section.delegate: sectionDelegate
+        section.delegate: (root.model.groupby != KDirchain.DirListModel.None) ? sectionDelegate : Item
+        header: (root.model.groupby == KDirchain.DirListModel.None) ? sectionDelegate : Item
 
         onContentYChanged: {
             var endId = indexAt(root.width - 1, contentY + root.height)

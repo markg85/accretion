@@ -71,7 +71,7 @@ Item {
         id: dirModel
         details: "2"
         path: bcModel.url
-        groupby: KDirchain.DirListModel.MimeIcon
+        groupby: KDirchain.DirListModel.None
         property string stringGroupRole: stringRole(groupby)
     }
 
