@@ -223,6 +223,7 @@ Item {
 
         anchors.fill: parent
         model: parent.model
+        focus: true
         delegate: comp
         displaced: Transition {
             NumberAnimation { properties: "x"; duration: 100; easing.type: Easing.InOutQuad }
