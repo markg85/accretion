@@ -2,6 +2,7 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 import kdirchainmodel 1.0 as KDirchain
 import "../javascript/util.js" as JsUtil
+import "../components" as Components
 
 Item {
     id: root
@@ -20,57 +21,57 @@ Item {
                 anchors.fill: parent
                 spacing: 5
 
-                Text {
+                Components.ClickText {
                     id: items
                     width: parent.width * 0.50
                     anchors.verticalCenter: parent.verticalCenter
                     font.italic: true
                     font.bold: true
                     text: root.model.numOfItemsForGroup(section) + " items"
-                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                    MouseArea {
-                        anchors.fill: parent
-                        property int order: Qt.AscendingOrder
-                        onClicked: {
-                            root.model.sort(KDirchain.DirListModel.Name, section, order)
-                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-                        }
+                    colorNormal: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    colorHover: JsUtil.Theme.ViewContainer.HeaderNames.hover.color
+                    property int order: Qt.AscendingOrder
+
+                    onClicked: {
+                        root.model.sort(KDirchain.DirListModel.Name, section, order)
+                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+
                     }
                 }
 
-                Text {
+                Components.ClickText {
                     id: date
                     width: parent.width * 0.30
                     anchors.verticalCenter: parent.verticalCenter
                     font.italic: true
                     font.bold: true
                     text: "date"
-                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                    MouseArea {
-                        anchors.fill: parent
-                        property int order: Qt.AscendingOrder
-                        onClicked: {
-                            root.model.sort(KDirchain.DirListModel.ModificationTime, section, order)
-                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-                        }
+                    colorNormal: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    colorHover: JsUtil.Theme.ViewContainer.HeaderNames.hover.color
+                    property int order: Qt.AscendingOrder
+
+                    onClicked: {
+                        root.model.sort(KDirchain.DirListModel.ModificationTime, section, order)
+                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+
                     }
                 }
 
-                Text {
+                Components.ClickText {
                     id: type
                     width: parent.width * 0.20
                     anchors.verticalCenter: parent.verticalCenter
                     font.italic: true
                     font.bold: true
                     text: "size"
-                    color: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
-                    MouseArea {
-                        anchors.fill: parent
-                        property int order: Qt.AscendingOrder
-                        onClicked: {
-                            root.model.sort(KDirchain.DirListModel.Size, section, order)
-                            order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
-                        }
+                    colorNormal: JsUtil.Theme.ViewContainer.HeaderNames.normal.color
+                    colorHover: JsUtil.Theme.ViewContainer.HeaderNames.hover.color
+                    property int order: Qt.AscendingOrder
+
+                    onClicked: {
+                        root.model.sort(KDirchain.DirListModel.Size, section, order)
+                        order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
+
                     }
                 }
             }
