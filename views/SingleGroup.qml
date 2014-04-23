@@ -242,7 +242,7 @@ Item {
             }
         }
 
-        section.property: "mimeIcon"
+        section.property: root.model.stringGroupRole
         section.delegate: sectionDelegate
 
         onContentYChanged: {
