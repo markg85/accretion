@@ -36,6 +36,14 @@ Item {
 //        filterPlaceholder.state = "hidden"
     }
 
+    function toggleGrouping() {
+        if(dirModel.groupby == KDirchain.DirListModel.None) {
+            dirModel.groupby = KDirchain.DirListModel.MimeIcon
+        } else {
+            dirModel.groupby = KDirchain.DirListModel.None
+        }
+    }
+
     Behavior on opacity {
         NumberAnimation { duration: 100 }
     }
@@ -71,7 +79,7 @@ Item {
         id: dirModel
         details: "2"
         path: bcModel.url
-        groupby: KDirchain.DirListModel.None
+        groupby: KDirchain.DirListModel.MimeIcon
         property string stringGroupRole: stringRole(groupby)
     }
 

@@ -74,4 +74,10 @@ Item {
             activeView.activeView = true
         }
     }
+
+    function toggleGrouping() {
+        if(activeView) {
+            activeView.toggleGrouping()
+        }
+    }
 }

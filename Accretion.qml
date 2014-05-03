@@ -152,6 +152,13 @@ Rectangle {
                             text: "Split view"
                             onClicked: viewManager.splitViewToggle()
                         }
+                        Components.FontAwesomeIcon {
+                            width: parent.width
+                            height: 30
+                            iconName: JsUtil.FA.Columns
+                            text: "Toggle grouping (none, mimeicon)"
+                            onClicked: viewManager.toggleGrouping()
+                        }
                     }
                 }
             }
