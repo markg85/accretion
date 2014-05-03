@@ -11,6 +11,11 @@ Item {
     readonly property int itemHeight: 42
 
     Component {
+        id: emptyComponent
+        Item {}
+    }
+
+    Component {
         id: sectionDelegate
         Item {
             id: rect
@@ -250,8 +255,10 @@ Item {
         }
 
         section.property: root.model.stringGroupRole
-        section.delegate: (root.model.groupby != KDirchain.DirListModel.None) ? sectionDelegate : Item
-        header: (root.model.groupby == KDirchain.DirListModel.None) ? sectionDelegate : Item
+
+        // This bloody - sometimes - crashes when toggling.. Why?
+        section.delegate: (root.model.stringGroupRole) ? sectionDelegate : emptyComponent
+        header: (!root.model.stringGroupRole) ? sectionDelegate : emptyComponent
 
         onContentYChanged: {
             var endId = indexAt(root.width - 1, contentY + root.height)
@@ -276,9 +283,16 @@ Item {
                 lastStartId = startId
                 lastEndId = endId
 
+                var isMovingDown = (verticalVelocity > 0) ? true : false;
+
+                // console.log("parent.model.requestSortForItems("+lastStartId+", "+lastEndId+")")
                 // Enable the line below for on-demand sorting.
-                // parent.model.requestSortForItems(lastStartId, lastEndId)
+                parent.model.requestSortForItems(lastStartId, lastEndId, isMovingDown)
             }
         }
+    }
+
+    Components.ScrollBar {
+        flickable: mdl;
     }
 }
