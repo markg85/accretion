@@ -46,7 +46,7 @@ Item {
                     property int order: Qt.AscendingOrder
 
                     onClicked: {
-                        root.model.sort(KDirchain.DirListModel.Name, section, order)
+                        root.model.sortGroup(KDirchain.DirListModel.Name, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
                     }
                 }
@@ -63,7 +63,7 @@ Item {
                     property int order: Qt.AscendingOrder
 
                     onClicked: {
-                        root.model.sort(KDirchain.DirListModel.ModificationTime, section, order)
+                        root.model.sortGroup(KDirchain.DirListModel.ModificationTime, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
                     }
                 }
@@ -80,7 +80,7 @@ Item {
                     property int order: Qt.AscendingOrder
 
                     onClicked: {
-                        root.model.sort(KDirchain.DirListModel.Size, section, order)
+                        root.model.sortGroup(KDirchain.DirListModel.Size, section, order)
                         order = (order == Qt.AscendingOrder) ? Qt.DescendingOrder : Qt.AscendingOrder
                     }
                 }
@@ -287,7 +287,7 @@ Item {
 
                 // console.log("parent.model.requestSortForItems("+lastStartId+", "+lastEndId+")")
                 // Enable the line below for on-demand sorting.
-                parent.model.requestSortForItems(lastStartId, lastEndId, isMovingDown)
+                //parent.model.requestSortForItems(lastStartId, lastEndId, isMovingDown)
             }
         }
     }
