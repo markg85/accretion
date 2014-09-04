@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.0
 import kdirchainmodel 1.0 as KDirchain
 import "javascript/util.js" as JsUtil
 import "components" as Components
+import "statics" 1.0
 
 Rectangle {
     id: appRoot
@@ -28,7 +29,8 @@ Rectangle {
 
     ViewManager {
         id: viewManager
-        defaultUrl: "file:///home/kde-devel"
+//        defaultUrl: "file:///home/kde-devel"
+        defaultUrl: "file:///home/kde-devel/"
     }
 
     Column {
@@ -112,7 +114,7 @@ Rectangle {
                 id: rightButtons
                 width: parent.height
                 height: parent.height
-                iconName: JsUtil.FA.Cog
+                iconName: FA.applications.cog
 
                 onClicked: {
                     parCol.toggleQuickSettings()
